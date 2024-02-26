@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="@dimen/size_s"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,8 +20,8 @@
 
             <ImageView
                 android:id="@+id/avatar"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,18 +29,20 @@
                 android:id="@+id/first_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/size_s"
                 android:textColor="@android:color/black"
-                app:layout_constraintStart_toEndOf="@+id/avatar"
+                android:textSize="@dimen/font_l"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/avatar" />
 
             <TextView
                 android:id="@+id/last_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/size_s"
+                android:paddingTop="@dimen/size_s"
                 android:textColor="@android:color/black"
-                app:layout_constraintStart_toStartOf="@+id/first_name"
+                android:textSize="@dimen/font_m"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/first_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
