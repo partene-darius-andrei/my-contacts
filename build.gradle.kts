@@ -5,4 +5,5 @@ plugins {
     id("androidx.navigation.safeargs") version "2.7.4" apply false
     id("com.google.dagger.hilt.android") version "2.48" apply false
     id("io.gitlab.arturbosch.detekt") version("1.23.1")
+    id("com.google.devtools.ksp") version "1.9.22-1.0.17" apply false
 }

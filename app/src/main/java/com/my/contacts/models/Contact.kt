@@ -1,23 +1,20 @@
 package com.my.contacts.models
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class ContactsResponse(
-    val page: Int,
-    @SerializedName("per_page")
-    val perPage: Int,
-    val total: Int,
-    @SerializedName("total_pages")
-    val totalPages: Int,
-    val data: List<Contact>
-)
-
+@Entity
 data class Contact(
+    @PrimaryKey
     val id: Int,
     val email: String,
+    @ColumnInfo(name = "first_name")
     @SerializedName("first_name")
     val firstName: String,
+    @ColumnInfo(name = "last_name")
     @SerializedName("last_name")
     val lastName: String,
     val avatar: String

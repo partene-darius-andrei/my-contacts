@@ -37,7 +37,6 @@
                 android:id="@+id/last_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/size_s"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/font_m" />
 
