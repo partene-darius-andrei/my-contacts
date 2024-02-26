@@ -27,7 +27,12 @@ class ContactsListAdapter @Inject constructor()
     override fun getItemCount() = contacts.size
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-
+        with(holder.binding) {
+            contacts[position].let {
+                firstName.text = it.firstName
+                lastName.text = it.lastName
+            }
+        }
     }
 
     inner class ContactViewHolder(val binding: FragmentContactsListItemBinding)
