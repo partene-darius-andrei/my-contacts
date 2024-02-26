@@ -25,14 +25,12 @@ class ContactsListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            if (isOnline(context).not()) {
-                _state.value = ViewState.NoInternetConnection
+            _state.value = if (isOnline(context).not()) {
+                ViewState.NoInternetConnection
             } else {
-                val result = contactsRepository.getContacts()
-                if (result.isSuccessful && result.body()?.data != null) {
-                    _state.value = ViewState.Data(result.body()!!.data)
-                } else {
-                    _state.value = ViewState.Error
+                with(contactsRepository.getContacts()) {
+                    if (isSuccessful && body()?.data != null) ViewState.Data(body()!!.data)
+                    else ViewState.Error
                 }
             }
         }

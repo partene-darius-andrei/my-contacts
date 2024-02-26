@@ -12,6 +12,7 @@ import com.my.contacts.R
 import com.my.contacts.databinding.FragmentContactsListBinding
 import com.my.contacts.models.Contact
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ContactsListFragment : Fragment() {
@@ -20,6 +21,9 @@ class ContactsListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<ContactsListViewModel>()
+
+    @Inject
+    lateinit var contactsListAdapter: ContactsListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +36,7 @@ class ContactsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.recyclerView.adapter = contactsListAdapter
         viewModel.state().observe(viewLifecycleOwner) {
             when (it) {
                 ContactsListViewModel.ViewState.Loading -> showLoading()
@@ -66,6 +71,7 @@ class ContactsListFragment : Fragment() {
 
     private fun showData(contacts: List<Contact>) {
         hideLoading()
+        contactsListAdapter.contacts = contacts
     }
 
     override fun onDestroyView() {
