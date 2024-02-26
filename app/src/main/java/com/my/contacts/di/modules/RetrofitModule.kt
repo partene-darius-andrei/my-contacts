@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitModule {
 
     @Provides
-    fun provideLoggingInterceptor() = HttpLoggingInterceptor().apply {
+    fun provideLoggingInterceptor(): Interceptor = HttpLoggingInterceptor().apply {
         level = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor.Level.BODY
         } else {
