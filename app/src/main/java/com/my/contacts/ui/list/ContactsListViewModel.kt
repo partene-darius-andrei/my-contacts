@@ -22,7 +22,7 @@ class ContactsListViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
-    private val _state: MutableLiveData<ViewState> = MutableLiveData(ViewState.Loading)
+    private val _state = MutableLiveData<ViewState>(ViewState.Loading)
     fun state() = _state
 
     init {

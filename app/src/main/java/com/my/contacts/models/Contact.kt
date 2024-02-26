@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+//TODO break into 3: ContactViewModel, ContactRoomModel, ContactResponseModel
 @Entity
 data class Contact(
     @PrimaryKey
