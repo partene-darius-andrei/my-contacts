@@ -20,6 +20,8 @@ class ContactsListAdapter @Inject constructor() :
             notifyDataSetChanged()
         }
 
+    var listener: ((Contact) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val binding = FragmentContactsListItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -39,6 +41,7 @@ class ContactsListAdapter @Inject constructor() :
                     .into(avatar)
                 firstName.text = it.firstName
                 lastName.text = it.lastName
+                root.setOnClickListener { _ -> listener?.invoke(it) }
             }
         }
     }

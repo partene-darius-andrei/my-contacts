@@ -1,6 +1,7 @@
 package com.my.contacts.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ContactsResponse(
     val page: Int,
@@ -20,4 +21,4 @@ data class Contact(
     @SerializedName("last_name")
     val lastName: String,
     val avatar: String
-)
+): Serializable

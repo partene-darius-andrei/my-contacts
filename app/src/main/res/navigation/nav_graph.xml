@@ -6,6 +6,18 @@
 
     <fragment
         android:id="@+id/contacts_list"
-        android:name="com.my.contacts.ui.list.ContactsListFragment" />
+        android:name="com.my.contacts.ui.list.ContactsListFragment" >
+        <action
+            android:id="@+id/action_contacts_list_to_contact_details"
+            app:destination="@id/contact_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/contact_details"
+        android:name="com.my.contacts.ui.details.ContactDetailsFragment" >
+        <argument
+            android:name="contact"
+            app:argType="com.my.contacts.models.Contact" />
+    </fragment>
 
 </navigation>

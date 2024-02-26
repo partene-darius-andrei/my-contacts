@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.my.contacts.R
 import com.my.contacts.databinding.FragmentContactsListBinding
@@ -36,13 +37,25 @@ class ContactsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.adapter = contactsListAdapter
+        setupRecyclerView()
         viewModel.state().observe(viewLifecycleOwner) {
             when (it) {
                 ContactsListViewModel.ViewState.Loading -> showLoading()
                 ContactsListViewModel.ViewState.Error -> showError()
                 ContactsListViewModel.ViewState.NoInternetConnection -> showNoInternetConnection()
                 is ContactsListViewModel.ViewState.Data -> showData(it.contacts)
+            }
+        }
+    }
+
+    private fun setupRecyclerView() {
+        binding.recyclerView.adapter = contactsListAdapter.apply {
+            listener = {
+                findNavController()
+                    .navigate(
+                        ContactsListFragmentDirections
+                            .actionContactsListToContactDetails(it)
+                    )
             }
         }
     }
