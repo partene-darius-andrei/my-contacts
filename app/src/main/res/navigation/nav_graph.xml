@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/contacts_list">
+
+    <fragment
+        android:id="@+id/contacts_list"
+        android:name="com.my.contacts.ui.list.ContactsListFragment" />
 
 </navigation>
