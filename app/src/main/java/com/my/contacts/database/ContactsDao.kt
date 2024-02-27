@@ -8,6 +8,7 @@ import com.my.contacts.models.Contact
 
 @Dao
 interface ContactsDao {
+
     @Query("SELECT * FROM contact")
     suspend fun getAll(): List<Contact>
 

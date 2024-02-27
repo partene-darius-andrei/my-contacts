@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <CurrentIssues>
+    <ID>SpreadOperator:RoomRepository.kt$RoomRepository$(*contacts.toTypedArray())</ID>
+    <ID>TooGenericExceptionCaught:ContactsListViewModel.kt$ContactsListViewModel$exception: Exception</ID>
+  </CurrentIssues>
+</SmellBaseline>

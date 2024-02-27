@@ -19,4 +19,8 @@ data class Contact(
     @SerializedName("last_name")
     val lastName: String,
     val avatar: String
-): Serializable
+) : Serializable {
+    companion object {
+        private const val serialVersionUID = 201702011617L
+    }
+}
