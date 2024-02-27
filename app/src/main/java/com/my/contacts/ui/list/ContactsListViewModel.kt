@@ -1,49 +1,47 @@
 package com.my.contacts.ui.list
 
-import android.annotation.SuppressLint
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.my.contacts.models.Contact
 import com.my.contacts.repositories.ContactsRepository
 import com.my.contacts.repositories.RoomRepository
-import com.my.contacts.utils.isOnline
+import com.my.contacts.utils.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-@SuppressLint("StaticFieldLeak")
 class ContactsListViewModel @Inject constructor(
     private val contactsRepository: ContactsRepository,
     private val roomRepository: RoomRepository,
-    @ApplicationContext private val context: Context
+    private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
-    private val _state = MutableLiveData<ViewState>(ViewState.Loading)
-    fun state() = _state
+    private val _state = MutableLiveData<ViewState>()
+    val state = _state
 
-    init {
+    fun loadData() {
         viewModelScope.launch {
-            _state.value = if (isOnline(context).not()) {
-                _state.value = ViewState.NoInternetConnection
-                ViewState.Data(roomRepository.getContacts())
-            } else {
-                with(contactsRepository.getContacts()) {
-                    val result = body()?.data
-                    if (isSuccessful && result != null) {
-                        roomRepository.saveContacts(result)
-                        ViewState.Data(result)
-                    }
-                    else {
-                        _state.value = ViewState.Error
-                        ViewState.Data(roomRepository.getContacts())
-                    }
-                }
-            }
+            _state.value = ViewState.Loading
+            _state.value = (if (networkHelper.isOnline()) handleRequest() else handleOffline())
         }
+    }
+
+    private suspend fun handleRequest() = try {
+        val result = contactsRepository.getContacts()
+        roomRepository.saveContacts(result)
+        ViewState.Data(result)
+    } catch (exception: Exception) {
+        Timber.e(exception)
+        _state.value = ViewState.Error
+        ViewState.Data(roomRepository.getContacts())
+    }
+
+    private suspend fun handleOffline(): ViewState {
+        _state.value = ViewState.NoInternetConnection
+        return ViewState.Data(roomRepository.getContacts())
     }
 
     sealed interface ViewState {

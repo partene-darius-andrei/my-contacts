@@ -38,13 +38,16 @@ class ContactsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        viewModel.state().observe(viewLifecycleOwner) {
-            when (it) {
-                ContactsListViewModel.ViewState.Loading -> showLoading()
-                ContactsListViewModel.ViewState.Error -> showError()
-                ContactsListViewModel.ViewState.NoInternetConnection -> showNoInternetConnection()
-                is ContactsListViewModel.ViewState.Data -> showData(it.contacts)
+        with(viewModel) {
+            state.observe(viewLifecycleOwner) {
+                when (it) {
+                    ContactsListViewModel.ViewState.Loading -> showLoading()
+                    ContactsListViewModel.ViewState.Error -> showError()
+                    ContactsListViewModel.ViewState.NoInternetConnection -> showNoInternetConnection()
+                    is ContactsListViewModel.ViewState.Data -> showData(it.contacts)
+                }
             }
+            loadData()
         }
     }
 
